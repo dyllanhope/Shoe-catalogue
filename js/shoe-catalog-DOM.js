@@ -3,12 +3,13 @@ var colourData = document.querySelector(".colourData");
 var brandData = document.querySelector(".brandData");
 var sizeData = document.querySelector(".sizeData");
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
-var shoeInstance = ShoeCatalogManager();
+var shoeInstance = ShoeCatalogManager(records);
 
 window.onload = function(){
     buildColourDropDown();
     buildBrandDropDown();
     buildsizeDropDown();
+    console.log(records[1].item_stock.size)
 }
 
 function buildColourDropDown(){
