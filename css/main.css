@@ -1,0 +1,13 @@
+.border {
+    border : 1px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+@media(min-width:720px){
+    div.sideRight{
+        margin-right : 15px !important;
+    }
+    div.sideLeft{
+        margin-left : 15px !important;
+    }
+}
