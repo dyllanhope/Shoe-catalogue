@@ -11,11 +11,9 @@
     <title>Shoe Catalogue</title>
 
     <script type="text/template" class="dropDownTemplate">
-            <select>
                 {{#each list}}
                 <option value="{{this}}">{{this}}</option>
                 {{/each}}
-            </select>
     </script>
 
 </head>
@@ -26,13 +24,13 @@
         <div class="row center">
             <div class="col-8 border sideRight">
                 <div style="margin-bottom:5px;margin-top:5px">
-                    <span>Colour:<span style="float: none;margin:0px" class="colourData center"></span></span>
+                    <span>Colour:<select id="colourDrop" style="float: none;margin:0px" class="colourData center"></select></span>
                 </div>
                 <div style="margin-bottom:5px">
-                    <span>Brand: <span style="float: none" class="brandData center"></span></span>
+                    <span>Brand: <select id="brandDrop" style="float: none" class="brandData center"></select></span>
                 </div>
                 <div style="margin-bottom:5px">
-                    <span>Size: <span style="float: none" class="sizeData center"></span></span>
+                    <span>Size: <select id="sizeDrop" style="float: none" class="sizeData center"></select></span>
                 </div>
                 <div>
                     <h4 id="display">Please select your dream shoe</h4>

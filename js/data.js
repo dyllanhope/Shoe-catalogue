@@ -1,6 +1,6 @@
 var records = [
     {
-        color: "Blue",
+        colour: "Blue",
         brand: "Nike",
         price: 350,
         item_stock: [
@@ -13,7 +13,7 @@ var records = [
         ]
     },
     {
-        color: "Red",
+        colour: "Red",
         brand: "Nike",
         price: 400,
         item_stock: [
@@ -26,7 +26,7 @@ var records = [
         ]
     },
     {
-        color: "Black",
+        colour: "Black",
         brand: "Nike",
         price: 900,
         item_stock: [
@@ -39,7 +39,7 @@ var records = [
         ]
     },
     {
-        color: "White",
+        colour: "White",
         brand: "Nike",
         price: 1000,
         item_stock: [
@@ -52,7 +52,7 @@ var records = [
         ]
     },
     {
-        color: "Grey",
+        colour: "Grey",
         brand: "Nike",
         price: 800,
         item_stock: [
@@ -65,7 +65,7 @@ var records = [
         ]
     },
     {
-        color: "Red",
+        colour: "Red",
         brand: "Adidas",
         price: 275,
         item_stock: [
@@ -78,7 +78,7 @@ var records = [
         ]
     },
     {
-        color: "Blue",
+        colour: "Blue",
         brand: "Adidas",
         price: 320,
         item_stock: [
@@ -91,7 +91,7 @@ var records = [
         ]
     },
     {
-        color: "Black",
+        colour: "Black",
         brand: "Adidas",
         price: 1200,
         item_stock: [
@@ -104,7 +104,7 @@ var records = [
         ]
     },
     {
-        color: "White",
+        colour: "White",
         brand: "Adidas",
         price: 1100,
         item_stock: [
@@ -117,7 +117,7 @@ var records = [
         ]
     },
     {
-        color: "Grey",
+        colour: "Grey",
         brand: "Adidas",
         price: 800,
         item_stock: [
@@ -130,7 +130,7 @@ var records = [
         ]
     },
     {
-        color: "Red",
+        colour: "Red",
         brand: "New Balance",
         price: 420,
         item_stock: [
@@ -143,7 +143,7 @@ var records = [
         ]
     },
     {
-        color: "Blue",
+        colour: "Blue",
         brand: "New Balance",
         price: 370,
         item_stock: [
@@ -156,7 +156,7 @@ var records = [
         ]
     },
     {
-        color: "White",
+        colour: "White",
         brand: "New Balance",
         price: 900,
         item_stock: [
@@ -169,7 +169,7 @@ var records = [
         ]
     },
     {
-        color: "Black",
+        colour: "Black",
         brand: "New Balance",
         price: 1180,
         item_stock: [
@@ -182,7 +182,7 @@ var records = [
         ]
     },
     {
-        color: "Grey",
+        colour: "Grey",
         brand: "New Balance",
         price: 960,
         item_stock: [
@@ -195,7 +195,7 @@ var records = [
         ]
     },
     {
-        color: "Red",
+        colour: "Red",
         brand: "Vans",
         price: 850,
         item_stock: [
@@ -208,7 +208,7 @@ var records = [
         ]
     },
     {
-        color: "Blue",
+        colour: "Blue",
         brand: "Vans",
         price: 780,
         item_stock: [
@@ -221,7 +221,7 @@ var records = [
         ]
     },
     {
-        color: "Black",
+        colour: "Black",
         brand: "Vans",
         price: 900,
         item_stock: [
@@ -234,7 +234,7 @@ var records = [
         ]
     },
     {
-        color: "White",
+        colour: "White",
         brand: "Vans",
         price: 500,
         item_stock: [
@@ -247,7 +247,7 @@ var records = [
         ]
     },
     {
-        color: "Grey",
+        colour: "Grey",
         brand: "Vans",
         price: 600,
         item_stock: [
