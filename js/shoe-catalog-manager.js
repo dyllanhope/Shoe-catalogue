@@ -4,34 +4,21 @@ function ShoeCatalogManager(data) {
     var brandList = ["Select brand"];
     var sizeList = ["Select shoe size"];
 
-    function filterColourDropDown(colour) {
-        var filteredColour = [];
-        for (var k = 0; k < loadData.length; k++) {
-            if (colour === loadData[k].colour) {
-                filteredColour.push(loadData[k]);
-            }
-        }
-        return filteredColour;
-    }
-    function filterBrandDropDown(brand) {
-        var filteredBrand = [];
-        for (var k = 0; k < loadData.length; k++) {
-            if (brand === loadData[k].brand) {
-                filteredBrand.push(loadData[k]);
-            }
-        }
-        return filteredBrand;
-    }
-    function filterSizeChoice(size) {
-        var filteredSize = [];
-        for (var k = 0; k < loadData.length; k++) {
-            for (var l = 0; l < loadData[k].item_stock.length; l++) {
-                if (size === loadData[k].item_stock[l].size) {
-                    filteredSize.push(loadData[k].item_stock[l].stock);
+    function filterItems(colour, brand, size) {
+        var filteredItem;
+        if (colour && brand && size) {
+            for (var k = 0; k < loadData.length; k++) {
+                if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
+                    filteredItem = loadData[k].item_stock;
                 }
             }
+            for(var l=0;l<filteredItem.length;l++){
+                if(size === filteredItem[l].size){
+                    filteredItem = filteredItem[l].stock;
+                }
+            }
+            return filteredItem
         }
-        return filteredSize;
     }
 
     function buildColourList() {
@@ -72,8 +59,6 @@ function ShoeCatalogManager(data) {
         colours: buildColourList,
         brand: buildBrandList,
         size: buildSizeList,
-        filterColour: filterColourDropDown,
-        filterBrand: filterBrandDropDown,
-        filterSize: filterSizeChoice
+        filter: filterItems
     }
 }
