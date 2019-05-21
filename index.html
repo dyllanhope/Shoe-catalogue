@@ -10,10 +10,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <title>Shoe Catalogue</title>
 
+    <script type="text/template" class="basketListTemplate">
+        <ul>
+            {{#each items}}
+                <li>Size {{size}} {{colour}} {{brand}}  ({{qty}})</li>
+            {{/each}}
+        </ul>
+    </script>
+
     <script type="text/template" class="dropDownTemplate">
-                {{#each list}}
-                <option value="{{this}}">{{this}}</option>
-                {{/each}}
+        {{#each list}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
     </script>
 
 </head>
@@ -34,6 +42,7 @@
                 </div>
                 <div>
                     <button style="margin:5px" class="searchButton">Search</button>
+                    <button style="margin:5px" class="addButton">Add to basket</button>
                 </div>
                 <div>
                     <h4 style="margin:5px" id="display">Please select your dream shoe</h4>
@@ -41,6 +50,9 @@
             </div>
             <div class="col-4 sideLeft">
                 <h3><u>Shopping Basket:</u></h3>
+                <div class= "listData">
+
+                </div>
             </div>
         </div>
     </div>

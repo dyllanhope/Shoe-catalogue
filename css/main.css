@@ -3,6 +3,10 @@
     background-color: white;
     border-radius: 5px;
 }
+li{
+    color:white !important;
+    text-align: left !important;
+}
 @media(min-width:720px){
     div.sideRight{
         margin-right : 15px !important;
