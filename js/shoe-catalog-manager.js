@@ -21,7 +21,7 @@ function ShoeCatalogManager(data) {
                     filteredItem = filteredItem[l].stock;
                 }
             }
-            filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock."
+            filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
             return filteredItem;
         } else {
             return "Please make sure all data is entered"
