@@ -12,6 +12,9 @@ var addBtn = document.querySelector(".addButton");
 var basketTemplate = Handlebars.compile(basketTemplateSource);
 var clearBtn = document.querySelector(".clearButton");
 var checkoutBtn = document.querySelector(".checkoutButton");
+var recordEditor = document.querySelector(".recordUpdate");
+var showEditor = document.querySelector(".showRecordEditor");
+var updateBtn = document.querySelector(".updateRecords");
 
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
 var searchBtn = document.querySelector(".searchButton");
@@ -21,7 +24,14 @@ window.onload = function () {
     buildColourDropDown();
     buildBrandDropDown();
     buildsizeDropDown();
+    recordEditor.style.display = "none";
 }
+updateBtn.addEventListener('click',function(){
+    recordEditor.style.display = "none";
+})
+showEditor.addEventListener('click',function(){
+    recordEditor.style.display = "unset";
+})
 
 searchBtn.addEventListener('click', function () {
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);

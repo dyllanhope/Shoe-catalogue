@@ -129,10 +129,10 @@ function ShoeCatalogManager(data) {
 
     function resetBasket(){
         if (!basketList || !basketList.length){
-            return "You have no items in your basket"
+            return "You have no items in your basket";
         }else{
             basketList = [];
-            return "items checked out successfully"
+            return "items checked out successfully";
         }
     }
 

@@ -3,6 +3,12 @@
     background-color: white;
     border-radius: 5px;
 }
+div.info{
+    background-color: white;
+    border : 1px solid black;
+    border-radius: 5px;
+    display: none;
+}
 button.clear{
     background-color: white;
     border: none;
@@ -13,6 +19,10 @@ button.clear{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+h4{
+    margin-top:2px;
+    margin-bottom:2px; 
 }
 button.clear:hover{
     background-color: rgba(255, 102, 0, 0.842);

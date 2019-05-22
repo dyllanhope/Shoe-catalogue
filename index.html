@@ -32,7 +32,8 @@
         <div class="row center">
             <div class="col-8 border sideRight">
                 <div style="margin-bottom:5px;margin-top:5px">
-                    <span>Colour:<select id="colourDrop" style="float: none;margin:0px" class="colourData center"></select></span>
+                    <span>Colour:<select id="colourDrop" style="float: none;margin:0px"
+                            class="colourData center"></select></span>
                 </div>
                 <div style="margin-bottom:5px">
                     <span>Brand: <select id="brandDrop" style="float: none" class="brandData center"></select></span>
@@ -50,7 +51,7 @@
             </div>
             <div class="col-4 sideLeft">
                 <h3><u>Shopping Basket:</u></h3>
-                <div class= "listData">
+                <div class="listData">
 
                 </div>
                 <div style="float: right">
@@ -61,9 +62,33 @@
                 </div>
             </div>
         </div>
+        <div class="row center">
+            <button class="showRecordEditor">Update records</button>
+            <div class="col-12 info recordUpdate">
+                <div>
+                    <h4><u>Update records</u></h4>
+                </div>
+                <div>
+                    <label>Colour:</label>
+                    <input style="margin:5px" type="text">
+                    <label>Brand:</label>
+                    <input style="margin:5px" type="text">
+                    <label>Price:</label>
+                    <input style="margin:5px;width:60px" type="text">
+                    <label>Size:</label>
+                    <input style="margin:5px;width:60px" type="text">
+                    <label>Stock:</label>
+                    <input style="margin:5px;width:60px" type="text">
+                </div>
+                <div>
+                    <button style="margin-bottom: 6px" class="updateRecords">Add record</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script src="js/data.js"></script>
 <script src="js/shoe-catalog-manager.js"></script>
 <script src="js/shoe-catalog-DOM.js"></script>
+
 </html>
