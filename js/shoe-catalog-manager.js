@@ -63,40 +63,36 @@ function ShoeCatalogManager(data) {
     }
 
     function createBasketItems(colourP, brandP, sizeP) {
-        if (!colourP.startsWith('Select') 
-            && !brandP.startsWith('Select') 
+        if (!colourP.startsWith('Select')
+            && !brandP.startsWith('Select')
             && !sizeP.startsWith('Select')) {
 
             var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1 };
-            
+
             var existingShoe = getExistingShoe(currentShoe);
 
-            if (existingShoe) {
-                // update it
+            if (existingShoe > -1) {
+                basketList[existingShoe].qty++;
             } else {
-                // add a new shoe to basketList
-            }
-
-
-            for (var x = 0; x < basketList.length; x++) {
-
-                if (basketList[x].size === currentShoe.size 
-                    && basketList[x].colour === currentShoe.colour 
-                    && basketList[x].brand === currentShoe.brand) {
-
-                    basketList[x].qty += 1;
-
-                } else {
-                    
-                    basketList.push(currentShoe);
-                    count++;
-
-                }
-                return basketList;
+                basketList.push(currentShoe);
             }
         }
-        
+        return basketList;
     }
+
+    function getExistingShoe(shoeData) {
+        for (var x = 0; x < basketList.length; x++) {
+            if (basketList[x].size === shoeData.size
+                && basketList[x].colour === shoeData.colour
+                && basketList[x].brand === shoeData.brand) {
+
+                return x;
+            }
+        }
+    }
+
+
+
 
     return {
         colours: buildColourList,
