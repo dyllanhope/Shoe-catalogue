@@ -4,7 +4,6 @@ function ShoeCatalogManager(data) {
     var colourList = ["Select colour"];
     var brandList = ["Select brand"];
     var sizeList = ["Select shoe size"];
-    var count = 0;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -69,18 +68,38 @@ function ShoeCatalogManager(data) {
 
             var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1 };
 
-            var existingShoe = getExistingShoe(currentShoe);
+            var existingShoeLoc = getExistingShoeLoc(currentShoe);
+            var dataIndex = getStockLoc(currentShoe);
 
-            if (existingShoe > -1) {
-                basketList[existingShoe].qty++;
-            } else {
+            if (existingShoeLoc > -1) {
+                if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0) {
+                    basketList[existingShoeLoc].qty++;
+                    loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
+                }
+            } else if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0){
                 basketList.push(currentShoe);
+                loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
             }
         }
         return basketList;
     }
 
-    function getExistingShoe(shoeData) {
+    function getStockLoc(shoeData) {
+        for (var x = 0; x < loadData.length; x++) {
+            if (loadData[x].colour === shoeData.colour
+                && loadData[x].brand === shoeData.brand) {
+
+                for (var y = 0; y < loadData[x].item_stock.length; y++) {
+                    if (loadData[x].item_stock[y].size === shoeData.size) {
+                        return [x, y];
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    function getExistingShoeLoc(shoeData) {
         for (var x = 0; x < basketList.length; x++) {
             if (basketList[x].size === shoeData.size
                 && basketList[x].colour === shoeData.colour
@@ -89,6 +108,7 @@ function ShoeCatalogManager(data) {
                 return x;
             }
         }
+        return -1;
     }
 
 

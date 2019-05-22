@@ -29,6 +29,7 @@ addBtn.addEventListener('click',function(){
     var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value)};
     var basketHTML = basketTemplate(basketItems);
     listData.innerHTML = basketHTML;
+    displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
 })
 
 function buildColourDropDown() {
