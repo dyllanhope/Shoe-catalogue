@@ -4,7 +4,6 @@ function ShoeCatalogManager(data) {
     var colourList = ["Select colour"];
     var brandList = ["Select brand"];
     var sizeList = ["Select shoe size"];
-    var clear = false;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -67,7 +66,6 @@ function ShoeCatalogManager(data) {
             && !brandP.startsWith('Select')
             && !sizeP.startsWith('Select')) {
 
-            clear = false;
             var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1 };
 
             var existingShoeLoc = getExistingShoeLoc(currentShoe);
@@ -129,12 +127,22 @@ function ShoeCatalogManager(data) {
         basketList = [];
     }
 
+    function resetBasket(){
+        if (!basketList || !basketList.length){
+            return "You have no items in your basket"
+        }else{
+            basketList = [];
+            return "items checked out successfully"
+        }
+    }
+
     return {
         colours: buildColourList,
         brand: buildBrandList,
         size: buildSizeList,
         createString: createDisplayString,
         buildBasket: createBasketItems,
-        clear: clearShoppingBasket
+        clear: clearShoppingBasket,
+        checkout: resetBasket
     }
 }

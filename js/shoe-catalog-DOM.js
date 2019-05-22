@@ -11,6 +11,7 @@ var displayField = document.getElementById("display");
 var addBtn = document.querySelector(".addButton");
 var basketTemplate = Handlebars.compile(basketTemplateSource);
 var clearBtn = document.querySelector(".clearButton");
+var checkoutBtn = document.querySelector(".checkoutButton");
 
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
 var searchBtn = document.querySelector(".searchButton");
@@ -26,17 +27,22 @@ searchBtn.addEventListener('click', function () {
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
 })
 
-addBtn.addEventListener('click',function(){
-    var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value)};
+addBtn.addEventListener('click', function () {
+    var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value) };
     var basketHTML = basketTemplate(basketItems);
     listData.innerHTML = basketHTML;
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
 })
 
-clearBtn.addEventListener('click',function(){
+clearBtn.addEventListener('click', function () {
     shoeInstance.clear();
     listData.innerHTML = '';
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
+})
+
+checkoutBtn.addEventListener('click', function () {
+    displayField.innerHTML = shoeInstance.checkout();
+    listData.innerHTML = '';
 })
 
 function buildColourDropDown() {
@@ -55,12 +61,4 @@ function buildsizeDropDown() {
     sizeData.innerHTML = sizeHTML;
 }
 
-Handlebars.registerHelper('isClear',function(){
-    if(shoeInstance.clear()){
-        alert(shoeInstance.check());
-        return true;
-    }else{
-        return false;
-    }
-})
 
