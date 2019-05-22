@@ -4,6 +4,7 @@ function ShoeCatalogManager(data) {
     var colourList = ["Select colour"];
     var brandList = ["Select brand"];
     var sizeList = ["Select shoe size"];
+    var clear = false;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -66,6 +67,7 @@ function ShoeCatalogManager(data) {
             && !brandP.startsWith('Select')
             && !sizeP.startsWith('Select')) {
 
+            clear = false;
             var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1 };
 
             var existingShoeLoc = getExistingShoeLoc(currentShoe);
@@ -76,7 +78,7 @@ function ShoeCatalogManager(data) {
                     basketList[existingShoeLoc].qty++;
                     loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
                 }
-            } else if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0){
+            } else if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0) {
                 basketList.push(currentShoe);
                 loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
             }
@@ -111,14 +113,28 @@ function ShoeCatalogManager(data) {
         return -1;
     }
 
-
-
+    function clearShoppingBasket() {
+        for (var x = 0; x < loadData.length; x++) {
+            for (var y = 0; y < basketList.length; y++) {
+                if (loadData[x].colour === basketList[y].colour
+                    && loadData[x].brand === basketList[y].brand) {
+                    for (var z = 0; z < loadData[x].item_stock.length; z++) {
+                        if (loadData[x].item_stock[z].size === basketList[y].size) {
+                            loadData[x].item_stock[z].stock += basketList[y].qty;
+                        }
+                    }
+                }
+            }
+        }
+        basketList = [];
+    }
 
     return {
         colours: buildColourList,
         brand: buildBrandList,
         size: buildSizeList,
         createString: createDisplayString,
-        buildBasket: createBasketItems
+        buildBasket: createBasketItems,
+        clear: clearShoppingBasket
     }
 }
