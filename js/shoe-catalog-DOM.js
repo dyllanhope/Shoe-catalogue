@@ -24,7 +24,7 @@ var priceNew = document.querySelector(".priceUp");
 var sizeNew = document.querySelector(".sizeUp");
 var stockNew = document.querySelector(".stockUp");
 //displays
-var messageField= document.getElementById("messageRecord");
+var messageField = document.getElementById("messageRecord");
 var displayField = document.getElementById("display");
 //template compilations
 var basketTemplate = Handlebars.compile(basketTemplateSource);
@@ -37,7 +37,11 @@ window.onload = function () {
     recordEditor.style.display = "none";
 }
 updateBtn.addEventListener('click', function () {
-    shoeInstance.update(colourNew.value,brandNew.value,priceNew.value,sizeNew.value,stockNew.value);
+    shoeInstance.update(colourNew.value, brandNew.value, priceNew.value, sizeNew.value, stockNew.value);
+    colourDropDown.innerHTML = '';
+    brandDropDown.innerHTML = '';
+    sizeDropDown.innerHTML = '';
+
     buildDropDowns();
 })
 showEditor.addEventListener('click', function () {

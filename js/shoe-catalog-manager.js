@@ -1,9 +1,6 @@
 function ShoeCatalogManager(data) {
     var loadData = data;
     var basketList = [];
-    var colourList = ["Select colour"];
-    var brandList = ["Select brand"];
-    var sizeList = ["Select shoe size"];
     var tracker = 0;
 
     function createDisplayString(colour, brand, size) {
@@ -29,6 +26,7 @@ function ShoeCatalogManager(data) {
     }
 
     function buildColourList() {
+        var colourList = ["Select colour"];
         var dataMap = {};
         for (var x = 0; x < loadData.length; x++) {
             if (dataMap[loadData[x].colour] === undefined) {
@@ -40,6 +38,7 @@ function ShoeCatalogManager(data) {
     }
 
     function buildBrandList() {
+        var brandList = ["Select brand"];
         var dataMap = {};
         for (var x = 0; x < loadData.length; x++) {
             if (dataMap[loadData[x].brand] === undefined) {
@@ -51,6 +50,7 @@ function ShoeCatalogManager(data) {
     }
 
     function buildSizeList() {
+        var sizeList = [];
         var dataMap = {};
         for (var x = 0; x < loadData.length; x++) {
             for (var i = 0; i < loadData[x].item_stock.length; i++)
@@ -59,6 +59,8 @@ function ShoeCatalogManager(data) {
                     sizeList.push(loadData[x].item_stock[i].size);
                 }
         }
+        sizeList = sizeList.sort((a, b) => a - b);
+        sizeList.unshift("Select shoe size");
         return sizeList;
     }
 
@@ -86,20 +88,24 @@ function ShoeCatalogManager(data) {
     }
 
     function getStockLoc(shoeData) {
+        var coords;
         for (var x = 0; x < loadData.length; x++) {
             if (loadData[x].colour === shoeData.colour
                 && loadData[x].brand === shoeData.brand) {
 
                 for (var y = 0; y < loadData[x].item_stock.length; y++) {
                     if (loadData[x].item_stock[y].size === shoeData.size) {
-                        return [x, y];
+                        coords = [x, y];
+                        return coords;
                     }else{
-                        return [x,-1];
+                        coords = [x,-1];
                     }
                 }
+            } else {
+                coords = -1;
             }
         }
-        return -1;
+        return coords;
     }
 
     function getExistingShoeLoc(shoeData) {
@@ -140,13 +146,13 @@ function ShoeCatalogManager(data) {
                     "brand": brand,
                     "price": price,
                     "item_stock": [
-                        { "size": size, "stock": stock }
+                        { "size": size, "stock": Number(stock) }
                     ]
                 });
             }else if(stockLoc[1] === -1){
-                loadData[stockLoc[0]].item_stock.push({"size":size, "stock":stock});
+                loadData[stockLoc[0]].item_stock.push({"size":size, "stock":Number(stock)});
             } else{
-                loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += stock;
+                loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += Number(stock);
             }
             console.log(loadData);
         }
