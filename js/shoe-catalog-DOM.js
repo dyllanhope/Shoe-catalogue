@@ -41,9 +41,9 @@ window.onload = function () {
 }
 updateBtn.addEventListener('click', function () {
     shoeInstance.update(colourNew.value, brandNew.value, priceNew.value, sizeNew.value, stockNew.value);
-    if(shoeInstance.passing()===true){
+    if (shoeInstance.passing() === true) {
         messageField.innerHTML = "The record has been successfully added!";
-    }else{
+    } else {
         messageField.innerHTML = "You have not filled every field.";
     }
     colourDropDown.innerHTML = '';

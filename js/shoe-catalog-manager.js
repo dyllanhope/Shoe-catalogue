@@ -189,7 +189,7 @@ function ShoeCatalogManager(data) {
     function displayPassing() {
         return passed;
     }
-    function displayTotal(){
+    function displayTotal() {
         return total.toFixed(2);
     }
     return {
