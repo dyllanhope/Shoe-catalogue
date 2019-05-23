@@ -2,6 +2,8 @@ function ShoeCatalogManager(data) {
     var loadData = data;
     var basketList = [];
     var tracker = 0;
+    var passed = false;
+    var total = 0.00;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -69,7 +71,7 @@ function ShoeCatalogManager(data) {
             && !brandP.startsWith('Select')
             && !sizeP.startsWith('Select')) {
 
-            var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1 };
+            var currentShoe = { "size": sizeP, "colour": colourP, "brand": brandP, "qty": 1, "cost": 0 };
 
             var existingShoeLoc = getExistingShoeLoc(currentShoe);
             var dataIndex = getStockLoc(currentShoe);
@@ -77,9 +79,13 @@ function ShoeCatalogManager(data) {
             if (existingShoeLoc > -1) {
                 if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0) {
                     basketList[existingShoeLoc].qty++;
+                    basketList[existingShoeLoc].cost += loadData[dataIndex[0]].price;
+                    total += loadData[dataIndex[0]].price;
                     loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
                 }
             } else if (loadData[dataIndex[0]].item_stock[dataIndex[1]].stock > 0) {
+                currentShoe.cost = loadData[dataIndex[0]].price;
+                total += loadData[dataIndex[0]].price;
                 basketList.push(currentShoe);
                 loadData[dataIndex[0]].item_stock[dataIndex[1]].stock--;
             }
@@ -97,8 +103,8 @@ function ShoeCatalogManager(data) {
                     if (loadData[x].item_stock[y].size === shoeData.size) {
                         coords = [x, y];
                         return coords;
-                    }else{
-                        coords = [x,-1];
+                    } else {
+                        coords = [x, -1];
                     }
                 }
             } else {
@@ -133,14 +139,17 @@ function ShoeCatalogManager(data) {
                 }
             }
         }
+        total = 0.00;
         basketList = [];
     }
 
-    function updateRecords(colour,brand,price,size,stock){
-        if(colour,brand,price,size,stock){
-            var searchData = {"size": size, "colour": colour, "brand": brand};
+    function updateRecords(colour, brand, price, size, stock) {
+        passed = false;
+        if (colour && brand && price && size && stock) {
+            passed = true;
+            var searchData = { "size": size, "colour": colour, "brand": brand };
             var stockLoc = getStockLoc(searchData);
-            if(stockLoc === -1){
+            if (stockLoc === -1) {
                 loadData.push({
                     "colour": colour,
                     "brand": brand,
@@ -149,9 +158,9 @@ function ShoeCatalogManager(data) {
                         { "size": size, "stock": Number(stock) }
                     ]
                 });
-            }else if(stockLoc[1] === -1){
-                loadData[stockLoc[0]].item_stock.push({"size":size, "stock":Number(stock)});
-            } else{
+            } else if (stockLoc[1] === -1) {
+                loadData[stockLoc[0]].item_stock.push({ "size": size, "stock": Number(stock) });
+            } else {
                 loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += Number(stock);
             }
             console.log(loadData);
@@ -168,13 +177,20 @@ function ShoeCatalogManager(data) {
     }
 
     function displayUpdater() {
-        if (tracker === 0){
-            tracker +=1;
+        if (tracker === 0) {
+            tracker += 1;
             return true;
-        }else{
+        } else {
             tracker -= 1;
             return false;
         }
+    }
+
+    function displayPassing() {
+        return passed;
+    }
+    function displayTotal(){
+        return total.toFixed(2);
     }
     return {
         colours: buildColourList,
@@ -185,6 +201,8 @@ function ShoeCatalogManager(data) {
         clear: clearShoppingBasket,
         checkout: resetBasket,
         check: displayUpdater,
-        update: updateRecords
+        update: updateRecords,
+        passing: displayPassing,
+        total: displayTotal
     }
 }

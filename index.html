@@ -13,7 +13,7 @@
     <script type="text/template" class="basketListTemplate">
         <ul>
             {{#each items}}
-                <li>Size {{size}} {{colour}} {{brand}}  ({{qty}})</li>
+                <li>Size {{size}} {{colour}} {{brand}}  ({{qty}} - R{{cost}}) </li>
             {{/each}}
         </ul>
     </script>
@@ -54,6 +54,9 @@
                 <div class="listData">
 
                 </div>
+                <div>
+                    <h4 class="totalText" style="color: white;float: none">Total: R<span id="total"></span></h4>
+                </div>
                 <div style="float: right">
                     <button class="clearButton clear">Clear basket</button>
                 </div>
@@ -91,7 +94,7 @@
                     </div>
                 </div>
                 <div>
-                        <h4 style="margin:5px" id="messageRecord"></h4>
+                    <h4 style="margin:5px" id="messageRecord"></h4>
                     <button style="margin-bottom: 6px" class="updateRecords clear">Add record</button>
                 </div>
             </div>

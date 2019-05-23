@@ -24,6 +24,8 @@ var priceNew = document.querySelector(".priceUp");
 var sizeNew = document.querySelector(".sizeUp");
 var stockNew = document.querySelector(".stockUp");
 //displays
+var dispTotal = document.querySelector(".totalText");
+var total = document.getElementById("total");
 var messageField = document.getElementById("messageRecord");
 var displayField = document.getElementById("display");
 //template compilations
@@ -35,9 +37,15 @@ var shoeInstance = ShoeCatalogManager(records);
 window.onload = function () {
     buildDropDowns();
     recordEditor.style.display = "none";
+    dispTotal.style.display = "none";
 }
 updateBtn.addEventListener('click', function () {
     shoeInstance.update(colourNew.value, brandNew.value, priceNew.value, sizeNew.value, stockNew.value);
+    if(shoeInstance.passing()===true){
+        messageField.innerHTML = "The record has been successfully added!";
+    }else{
+        messageField.innerHTML = "You have not filled every field.";
+    }
     colourDropDown.innerHTML = '';
     brandDropDown.innerHTML = '';
     sizeDropDown.innerHTML = '';
@@ -60,17 +68,21 @@ addBtn.addEventListener('click', function () {
     var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value) };
     var basketHTML = basketTemplate(basketItems);
     listData.innerHTML = basketHTML;
+    dispTotal.style.display = "unset";
+    total.innerHTML = shoeInstance.total();
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
 })
 
 clearBtn.addEventListener('click', function () {
     shoeInstance.clear();
     listData.innerHTML = '';
+    dispTotal.style.display = "none";
     displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
 })
 
 checkoutBtn.addEventListener('click', function () {
     displayField.innerHTML = shoeInstance.checkout();
+    total.style.display = "none";
     listData.innerHTML = '';
 })
 
