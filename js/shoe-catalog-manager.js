@@ -4,6 +4,7 @@ function ShoeCatalogManager(data) {
     var colourList = ["Select colour"];
     var brandList = ["Select brand"];
     var sizeList = ["Select shoe size"];
+    var tracker = 0;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -92,6 +93,8 @@ function ShoeCatalogManager(data) {
                 for (var y = 0; y < loadData[x].item_stock.length; y++) {
                     if (loadData[x].item_stock[y].size === shoeData.size) {
                         return [x, y];
+                    }else{
+                        return [x,-1];
                     }
                 }
             }
@@ -127,15 +130,46 @@ function ShoeCatalogManager(data) {
         basketList = [];
     }
 
-    function resetBasket(){
-        if (!basketList || !basketList.length){
+    function updateRecords(colour,brand,price,size,stock){
+        if(colour,brand,price,size,stock){
+            var searchData = {"size": size, "colour": colour, "brand": brand};
+            var stockLoc = getStockLoc(searchData);
+            if(stockLoc === -1){
+                loadData.push({
+                    "colour": colour,
+                    "brand": brand,
+                    "price": price,
+                    "item_stock": [
+                        { "size": size, "stock": stock }
+                    ]
+                });
+            }else if(stockLoc[1] === -1){
+                loadData[stockLoc[0]].item_stock.push({"size":size, "stock":stock});
+            } else{
+                loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += stock;
+            }
+            console.log(loadData);
+        }
+    }
+
+    function resetBasket() {
+        if (!basketList || !basketList.length) {
             return "You have no items in your basket";
-        }else{
+        } else {
             basketList = [];
             return "items checked out successfully";
         }
     }
 
+    function displayUpdater() {
+        if (tracker === 0){
+            tracker +=1;
+            return true;
+        }else{
+            tracker -= 1;
+            return false;
+        }
+    }
     return {
         colours: buildColourList,
         brand: buildBrandList,
@@ -143,6 +177,8 @@ function ShoeCatalogManager(data) {
         createString: createDisplayString,
         buildBasket: createBasketItems,
         clear: clearShoppingBasket,
-        checkout: resetBasket
+        checkout: resetBasket,
+        check: displayUpdater,
+        update: updateRecords
     }
 }

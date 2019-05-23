@@ -63,25 +63,36 @@
             </div>
         </div>
         <div class="row center">
-            <button class="showRecordEditor">Update records</button>
+            <button class="showRecordEditor clear">Update records</button>
             <div class="col-12 info recordUpdate">
                 <div>
                     <h4><u>Update records</u></h4>
                 </div>
                 <div>
-                    <label>Colour:</label>
-                    <input style="margin:5px" type="text">
-                    <label>Brand:</label>
-                    <input style="margin:5px" type="text">
-                    <label>Price:</label>
-                    <input style="margin:5px;width:60px" type="text">
-                    <label>Size:</label>
-                    <input style="margin:5px;width:60px" type="text">
-                    <label>Stock:</label>
-                    <input style="margin:5px;width:60px" type="text">
+                    <div>
+                        <label>Colour:</label>
+                        <input class="colourUp" style="margin:5px; float:none" type="text">
+                    </div>
+                    <div>
+                        <label>Brand:</label>
+                        <input class="brandUp" style="margin:5px" type="text">
+                    </div>
+                    <div>
+                        <label>Price:</label>
+                        <input class="priceUp" style="margin:5px;width:60px" type="number">
+                    </div>
+                    <div>
+                        <label>Size:</label>
+                        <input class="sizeUp" style="margin:5px;width:60px" type="number">
+                    </div>
+                    <div>
+                        <label>Stock:</label>
+                        <input class="stockUp" style="margin:5px;width:60px" type="number">
+                    </div>
                 </div>
                 <div>
-                    <button style="margin-bottom: 6px" class="updateRecords">Add record</button>
+                        <h4 style="margin:5px" id="messageRecord"></h4>
+                    <button style="margin-bottom: 6px" class="updateRecords clear">Add record</button>
                 </div>
             </div>
         </div>

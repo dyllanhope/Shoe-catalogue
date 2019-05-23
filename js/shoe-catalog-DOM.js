@@ -1,36 +1,51 @@
 var dropDownTemplateSource = document.querySelector(".dropDownTemplate").innerHTML;
 var basketTemplateSource = document.querySelector(".basketListTemplate").innerHTML;
+// drop down menues
 var colourDropDown = document.getElementById("colourDrop");
 var brandDropDown = document.getElementById("brandDrop");
 var sizeDropDown = document.getElementById("sizeDrop");
+//data for templates
 var colourData = document.querySelector(".colourData");
 var brandData = document.querySelector(".brandData");
 var sizeData = document.querySelector(".sizeData");
 var listData = document.querySelector(".listData");
-var displayField = document.getElementById("display");
+//buttons
 var addBtn = document.querySelector(".addButton");
-var basketTemplate = Handlebars.compile(basketTemplateSource);
 var clearBtn = document.querySelector(".clearButton");
 var checkoutBtn = document.querySelector(".checkoutButton");
+var searchBtn = document.querySelector(".searchButton");
 var recordEditor = document.querySelector(".recordUpdate");
 var showEditor = document.querySelector(".showRecordEditor");
 var updateBtn = document.querySelector(".updateRecords");
-
+//inputs for updating
+var colourNew = document.querySelector(".colourUp");
+var brandNew = document.querySelector(".brandUp");
+var priceNew = document.querySelector(".priceUp");
+var sizeNew = document.querySelector(".sizeUp");
+var stockNew = document.querySelector(".stockUp");
+//displays
+var messageField= document.getElementById("messageRecord");
+var displayField = document.getElementById("display");
+//template compilations
+var basketTemplate = Handlebars.compile(basketTemplateSource);
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
-var searchBtn = document.querySelector(".searchButton");
+
 var shoeInstance = ShoeCatalogManager(records);
 
 window.onload = function () {
-    buildColourDropDown();
-    buildBrandDropDown();
-    buildsizeDropDown();
+    buildDropDowns();
     recordEditor.style.display = "none";
 }
-updateBtn.addEventListener('click',function(){
-    recordEditor.style.display = "none";
+updateBtn.addEventListener('click', function () {
+    shoeInstance.update(colourNew.value,brandNew.value,priceNew.value,sizeNew.value,stockNew.value);
+    buildDropDowns();
 })
-showEditor.addEventListener('click',function(){
-    recordEditor.style.display = "unset";
+showEditor.addEventListener('click', function () {
+    if (shoeInstance.check()) {
+        recordEditor.style.display = "unset";
+    } else {
+        recordEditor.style.display = "none";
+    }
 })
 
 searchBtn.addEventListener('click', function () {
@@ -55,17 +70,15 @@ checkoutBtn.addEventListener('click', function () {
     listData.innerHTML = '';
 })
 
-function buildColourDropDown() {
+function buildDropDowns() {
     var colourOptions = { list: shoeInstance.colours() };
     var colourHTML = dropDownTemplate(colourOptions);
     colourData.innerHTML = colourHTML;
-}
-function buildBrandDropDown() {
+
     var brandOptions = { list: shoeInstance.brand() };
     var brandHTML = dropDownTemplate(brandOptions);
     brandData.innerHTML = brandHTML;
-}
-function buildsizeDropDown() {
+
     var sizeOptions = { list: shoeInstance.size() };
     var sizeHTML = dropDownTemplate(sizeOptions);
     sizeData.innerHTML = sizeHTML;
