@@ -82,8 +82,8 @@ clearBtn.addEventListener('click', function () {
 
 checkoutBtn.addEventListener('click', function () {
     displayField.innerHTML = shoeInstance.checkout();
-    total.style.display = "none";
     listData.innerHTML = '';
+    dispTotal.style.display = "none";
 })
 
 function buildDropDowns() {

@@ -175,6 +175,7 @@ function ShoeCatalogManager(data) {
             return "You have no items in your basket";
         } else {
             basketList = [];
+            total = 0.00;
             return "items checked out successfully";
         }
     }
