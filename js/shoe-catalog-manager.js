@@ -4,6 +4,7 @@ function ShoeCatalogManager(data) {
     var tracker = 0;
     var passed = false;
     var total = 0.00;
+    var keepStock = 0;
 
     function createDisplayString(colour, brand, size) {
         var filteredItem;
@@ -151,21 +152,26 @@ function ShoeCatalogManager(data) {
         passed = false;
         if (colour && brand && price && size && stock) {
             passed = true;
-            var searchData = { "size": size, "colour": colour, "brand": brand };
+            var upColour = colour.charAt(0).toUpperCase() + (colour.slice(1)).toLowerCase();
+            var upBrand = brand.charAt(0).toUpperCase() + (brand.slice(1)).toLowerCase();
+            var searchData = { "size": size, "colour": upColour, "brand": upBrand };
             var stockLoc = getStockLoc(searchData);
             if (stockLoc === -1) {
                 loadData.push({
-                    "colour": colour,
-                    "brand": brand,
-                    "price": price,
+                    "colour": upColour,
+                    "brand": upBrand,
+                    "price": Number(price),
                     "item_stock": [
                         { "size": size, "stock": Number(stock) }
                     ]
                 });
+                keepStock += Number(stock);
             } else if (stockLoc[1] === -1) {
                 loadData[stockLoc[0]].item_stock.push({ "size": size, "stock": Number(stock) });
+                keepStock += Number(stock);
             } else {
                 loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += Number(stock);
+                keepStock += Number(stock);
             }
         }
     }
@@ -180,24 +186,20 @@ function ShoeCatalogManager(data) {
         }
     }
 
-    function displayUpdater() {
-        if (tracker === 0) {
-            tracker += 1;
-            return true;
-        } else {
-            tracker -= 1;
-            return false;
-        }
-    }
-
     function displayPassing() {
         return passed;
     }
     function displayTotal() {
         return total.toFixed(2);
     }
-    function displayBasketList(){
+    function displayBasketList() {
         return basketList;
+    }
+    function displayStock() {
+        return keepStock;
+    }
+    function changeCurrentStockAdded() {
+        keepStock = 0;
     }
     return {
         colours: buildColourList,
@@ -207,10 +209,12 @@ function ShoeCatalogManager(data) {
         buildBasket: createBasketItems,
         clear: clearShoppingBasket,
         checkout: resetBasket,
-        check: displayUpdater,
         update: updateRecords,
         passing: displayPassing,
         total: displayTotal,
-        showList: displayBasketList
+        showList: displayBasketList,
+        stock: displayStock,
+        newStockCount: changeCurrentStockAdded,
+        find: getStockLoc
     }
 }

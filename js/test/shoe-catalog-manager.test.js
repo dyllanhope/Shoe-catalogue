@@ -70,14 +70,42 @@ describe("Testing Shoe Catalog Manager", function () {
         })
     })
     describe("Testing the shopping list clearing function", function(){
-        it("Should return empty array as the list was cleared", function () {
+        it("Should return a stock of 3 which was the original stock amount before adding to basket", function () {
             var shoeInstance = ShoeCatalogManager(records);
-            shoeInstance.buildBasket("Red","Vans","11");
-            shoeInstance.buildBasket("Black","New Balance","10");
-            shoeInstance.buildBasket("Red","Vans","11");
-            
+            shoeInstance.buildBasket("Red","Vans","7");
+            shoeInstance.buildBasket("Red","Vans","7");
+            var data ={ "size": "7", "colour": "Red", "brand": "Vans"}
+            var coordinates = shoeInstance.find(data);
+
             shoeInstance.clear();
-            assert.deepEqual(shoeInstance.showList(),[]);
+            assert.equal(records[coordinates[0]].item_stock[coordinates[1]].stock,3);
+        })
+        it("Should return a stock of 4 which was the original stock amount before adding to basket", function () {
+            var shoeInstance = ShoeCatalogManager(records);
+            shoeInstance.buildBasket("Black","Adidas","10");
+            shoeInstance.buildBasket("Black","Adidas","10");
+            shoeInstance.buildBasket("Black","Adidas","10");
+            var data ={ "size": "10", "colour": "Black", "brand": "Adidas"}
+            var coordinates = shoeInstance.find(data);
+
+            shoeInstance.clear();
+            assert.equal(records[coordinates[0]].item_stock[coordinates[1]].stock,4);
+        })
+        it("Should return a stock of 4 and 3 for each respective stock record which was the original stock amount before adding to basket", function () {
+            var shoeInstance = ShoeCatalogManager(records);
+            shoeInstance.buildBasket("Red","Adidas","10");
+            shoeInstance.buildBasket("White","Nike","9");
+            shoeInstance.buildBasket("Red","Adidas","10");
+
+            var data ={ "size": "9", "colour": "White", "brand": "Nike"}
+            var coordinates = shoeInstance.find(data);
+
+            var data2 ={ "size": "10", "colour": "Red", "brand": "Adidas"}
+            var coordinates2 = shoeInstance.find(data2);
+
+            shoeInstance.clear();
+            assert.equal(records[coordinates[0]].item_stock[coordinates[1]].stock,4);
+            assert.equal(records[coordinates2[0]].item_stock[coordinates2[1]].stock,3);
         })
     })
 })

@@ -1,9 +1,9 @@
 var dropDownTemplateSource = document.querySelector(".dropDownTemplate").innerHTML;
 var basketTemplateSource = document.querySelector(".basketListTemplate").innerHTML;
 // drop down menues
-var colourDropDown = document.getElementById("colourDrop");
-var brandDropDown = document.getElementById("brandDrop");
-var sizeDropDown = document.getElementById("sizeDrop");
+var colourDropDown = document.querySelector("#colourDrop");
+var brandDropDown = document.querySelector("#brandDrop");
+var sizeDropDown = document.querySelector("#sizeDrop");
 //data for templates
 var colourData = document.querySelector(".colourData");
 var brandData = document.querySelector(".brandData");
@@ -17,6 +17,7 @@ var searchBtn = document.querySelector(".searchButton");
 var recordEditor = document.querySelector(".recordUpdate");
 var showEditor = document.querySelector(".showRecordEditor");
 var updateBtn = document.querySelector(".updateRecords");
+var hideBtn = document.querySelector(".hideButton");
 //inputs for updating
 var colourNew = document.querySelector(".colourUp");
 var brandNew = document.querySelector(".brandUp");
@@ -25,9 +26,9 @@ var sizeNew = document.querySelector(".sizeUp");
 var stockNew = document.querySelector(".stockUp");
 //displays
 var dispTotal = document.querySelector(".totalText");
-var total = document.getElementById("total");
-var messageField = document.getElementById("messageRecord");
-var displayField = document.getElementById("display");
+var total = document.querySelector("#total");
+var messageField = document.querySelector("#messageRecord");
+var displayField = document.querySelector("#display");
 //template compilations
 var basketTemplate = Handlebars.compile(basketTemplateSource);
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
@@ -42,22 +43,32 @@ window.onload = function () {
 updateBtn.addEventListener('click', function () {
     shoeInstance.update(colourNew.value, brandNew.value, priceNew.value, sizeNew.value, stockNew.value);
     if (shoeInstance.passing() === true) {
-        messageField.innerHTML = "The record has been successfully added!";
+        messageField.innerHTML = "The record has been successfully added. Total stock added: " + shoeInstance.stock();
     } else {
         messageField.innerHTML = "You have not filled every field.";
     }
+
     colourDropDown.innerHTML = '';
     brandDropDown.innerHTML = '';
     sizeDropDown.innerHTML = '';
 
     buildDropDowns();
 })
+
+hideBtn.addEventListener('click', function () {
+    recordEditor.style.display = "none";
+
+    colourNew.value = '';
+    brandNew.value = '';
+    priceNew.value = '';
+    sizeNew.value = '';
+    stockNew.value = '';
+    messageField.innerHTML = '';
+})
 showEditor.addEventListener('click', function () {
-    if (shoeInstance.check()) {
-        recordEditor.style.display = "unset";
-    } else {
-        recordEditor.style.display = "none";
-    }
+    recordEditor.style.display = "unset";
+
+    shoeInstance.newStockCount();
 })
 
 searchBtn.addEventListener('click', function () {

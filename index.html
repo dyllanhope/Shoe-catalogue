@@ -31,16 +31,27 @@
         <h1><u>Dyllans Shoe Catalogue</u></h1>
         <div class="row center">
             <div class="col-8 border sideRight">
-                <div style="margin-bottom:5px;margin-top:5px">
-                    <span>Colour:<select id="colourDrop" style="float: none;margin:0px"
-                            class="colourData center"></select></span>
-                </div>
-                <div style="margin-bottom:5px">
-                    <span>Brand: <select id="brandDrop" style="float: none" class="brandData center"></select></span>
-                </div>
-                <div style="margin-bottom:5px">
-                    <span>Size: <select id="sizeDrop" style="float: none" class="sizeData center"></select></span>
-                </div>
+                <table class="center">
+                    <tr>
+                        <td>
+                            <h4>Colour:</h4>
+                        </td>
+                        <td><select id="colourDrop" style="float: none;margin:0px" class="colourData center"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Brand:</h4>
+                        </td>
+                        <td><select id="brandDrop" style="float: none" class="brandData center"></select></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Size:</h4>
+                        </td>
+                        <td><select id="sizeDrop" style="float: none" class="sizeData center"></select></td>
+                    </tr>
+                </table>
                 <div>
                     <button style="margin:5px" class="searchButton">Search</button>
                     <button style="margin:5px" class="addButton">Add to basket</button>
@@ -65,39 +76,55 @@
                 </div>
             </div>
         </div>
-        <div class="row center">
-            <button class="showRecordEditor clear">Update records</button>
-            <div class="col-12 info recordUpdate">
+        <div class="row ">
+            <div class="col-4">
+                <button class="showRecordEditor clear">Update records</button>
+                <button class="hideButton clear">Hide</button>
+            </div>
+            <div class="col-4 info recordUpdate">
                 <div>
-                    <h4><u>Update records</u></h4>
+                    <h3 style="margin: 2px;color:black"><u>Update records</u></h3>
                 </div>
                 <div>
-                    <div>
-                        <label>Colour:</label>
-                        <input class="colourUp" style="margin:5px; float:none" type="text">
-                    </div>
-                    <div>
-                        <label>Brand:</label>
-                        <input class="brandUp" style="margin:5px" type="text">
-                    </div>
-                    <div>
-                        <label>Price:</label>
-                        <input class="priceUp" style="margin:5px;width:60px" type="number">
-                    </div>
-                    <div>
-                        <label>Size:</label>
-                        <input class="sizeUp" style="margin:5px;width:60px" type="number">
-                    </div>
-                    <div>
-                        <label>Stock:</label>
-                        <input class="stockUp" style="margin:5px;width:60px" type="number">
-                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <h4>Colour:</h4>
+                            </td>
+                            <td><input class="colourUp" style="margin:5px; float:none" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Brand:</h4>
+                            </td>
+                            <td><input class="brandUp" style="margin:5px" type="text"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Price:</h4>
+                            </td>
+                            <td> <input class="priceUp" style="margin:5px;width:50px" type="number"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Size:</h4>
+                            </td>
+                            <td><input class="sizeUp" style="margin:5px;width:50px" type="number"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4>Stock:</h4>
+                            </td>
+                            <td><input class="stockUp" style="margin:5px;width:50px" type="number"></td>
+                        </tr>
+                    </table>
                 </div>
                 <div>
                     <h4 style="margin:5px" id="messageRecord"></h4>
                     <button style="margin-bottom: 6px" class="updateRecords clear">Add record</button>
                 </div>
             </div>
+            <div class="col-4"></div>
         </div>
     </div>
 </body>
