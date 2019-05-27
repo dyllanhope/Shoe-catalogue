@@ -1,7 +1,6 @@
 function ShoeCatalogManager(data) {
     var loadData = data;
     var basketList = [];
-    var tracker = 0;
     var passed = false;
     var total = 0.00;
     var keepStock = 0;
@@ -11,19 +10,28 @@ function ShoeCatalogManager(data) {
         var filteredItemData;
         if (colour && brand && size) {
             if (!colour.startsWith('Select') && !brand.startsWith('Select') && !size.startsWith('Select')) {
-                for (var k = 0; k < loadData.length; k++) {
-                    if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
-                        filteredItem = loadData[k].item_stock;
-                        filteredItemData = loadData[k]
+                var checkData = { "size": size, "colour": colour, "brand": brand };
+                var test = getStockLoc(checkData)
+                if (test === -1) {
+                    return "We have none of these in stock.";
+                } else if (test[1] === -1) {
+                    return "We don't have that size."
+                } else {
+                    for (var k = 0; k < loadData.length; k++) {
+                        if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
+                            filteredItem = loadData[k].item_stock;
+                            filteredItemData = loadData[k]
+                        }
                     }
-                }
-                for (var l = 0; l < filteredItem.length; l++) {
-                    if (size === filteredItem[l].size) {
-                        filteredItem = filteredItem[l].stock;
+                    for (var l = 0; l < filteredItem.length; l++) {
+                        if (size === filteredItem[l].size) {
+                            filteredItem = filteredItem[l].stock;
+                        }
                     }
+
+                    filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
+                    return filteredItem;
                 }
-                filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
-                return filteredItem;
             } else {
                 return "Please make sure all data is entered"
             }
