@@ -6,34 +6,74 @@ function ShoeCatalogManager(data) {
     var keepStock = 0;
 
     function createDisplayString(colour, brand, size) {
+
         var filteredItem;
         var filteredItemData;
         if (colour && brand && size) {
-            if (!colour.startsWith('Select') && !brand.startsWith('Select') && !size.startsWith('Select')) {
-                var checkData = { "size": size, "colour": colour, "brand": brand };
-                var test = getStockLoc(checkData)
-                if (test === -1) {
-                    return "We have none of these in stock.";
-                } else if (test[1] === -1) {
-                    return "We don't have that size."
-                } else {
-                    for (var k = 0; k < loadData.length; k++) {
-                        if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
-                            filteredItem = loadData[k].item_stock;
-                            filteredItemData = loadData[k]
-                        }
-                    }
-                    for (var l = 0; l < filteredItem.length; l++) {
-                        if (size === filteredItem[l].size) {
-                            filteredItem = filteredItem[l].stock;
-                        }
-                    }
+            var checkData = { "size": size, "colour": colour, "brand": brand };
+            if (!colour.startsWith('Select')) {
+                filteredItemData = loadData.filter(function (shoe) {
+                    return shoe.colour === colour;
+                });
+                console.log(filteredItemData)
+            }
 
-                    filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
-                    return filteredItem;
+            if (!brand.startsWith('Select')) {
+                if (filteredItemData) {
+                    filteredItemData = filteredItemData.filter(function (shoe) {
+                        return shoe.brand === brand;
+                    });
+                } else {
+                    filteredItemData = loadData.filter(function (shoe) {
+                        return shoe.brand === brand;
+                    });
                 }
+                console.log(filteredItemData)
+            }
+            if (!size.startsWith('Select')) {
+                if (filteredItemData) {
+                    filteredItemData = filteredItemData.filter(function (shoe) {
+                        for (var y = 0; y < filteredItemData.length; y++) {
+                            for (var x = 0; x < filteredItemData[y].item_stock.length; x++) {
+                                if (shoe.item_stock[x].size === size) {
+                                    return shoe;
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    filteredItemData = loadData.filter(function (shoe) {
+                        for (var y = 0; y < loadData.length; y++) {
+                            for (var x = 0; x < loadData[y].item_stock.length; x++) {
+                                if (shoe.item_stock[x].size === size) {
+                                    return shoe;;
+                                }
+                            }
+                        }
+                    });
+                }
+                console.log(filteredItemData)
+            }
+            var test = getStockLoc(checkData)
+            if (test === -1) {
+                return "We have none of these in stock.";
+            } else if (test[1] === -1) {
+                return "We don't have that size."
             } else {
-                return "Please make sure all data is entered"
+                for (var k = 0; k < loadData.length; k++) {
+                    if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
+                        filteredItem = loadData[k].item_stock;
+                        filteredItemData = loadData[k]
+                    }
+                }
+                for (var l = 0; l < filteredItem.length; l++) {
+                    if (size === filteredItem[l].size) {
+                        filteredItem = filteredItem[l].stock;
+                    }
+                }
+
+                filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
+                return filteredItem;
             }
         }
     }
