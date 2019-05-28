@@ -30,7 +30,7 @@ button.clear:hover{
     color: white;
 }
 li{
-    color:white !important;
+    color:black !important;
     text-align: left !important;
 }
 @media(min-width:720px){

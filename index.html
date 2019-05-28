@@ -10,6 +10,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <title>Shoe Catalogue</title>
 
+    <script type="text/template" class="filteredListTemplate">
+            {{#if (isAllSelected)}}
+                {{#each filter}}
+                    <h4>We have {{stock}} size {{size}} {{colour}} {{brand}}(s) in stock.</h4>
+                {{/each}}
+            {{else}}
+            <h4>Shoes:</h4>
+            <ol>
+                {{#each filter}}
+                    <li>{{Avail_item}} - Sizes: {{Avail_sizes}} - Price: R{{price}}</li>
+                {{/each}}
+            </ol>
+            {{/if}}
+    </script>
+
+
     <script type="text/template" class="basketListTemplate">
         <ul>
             {{#each items}}
@@ -56,8 +72,8 @@
                     <button style="margin:5px" class="searchButton">Search</button>
                     <button style="margin:5px" class="addButton">Add to basket</button>
                 </div>
-                <div>
-                    <h4 style="margin:5px" id="display">Please select your dream shoe</h4>
+                <div class="filterData center">
+
                 </div>
             </div>
             <div class="col-4 sideLeft">

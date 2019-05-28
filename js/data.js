@@ -29,7 +29,7 @@ var records = [
         colour: "Black",
         brand: "Nike",
         price: 900,
-        item_stock: [
+        item_stock: [ 
             { size: "7", stock: 0 },
             { size: "8", stock: 2 },
             { size: "9", stock: 2 },

@@ -6,75 +6,111 @@ function ShoeCatalogManager(data) {
     var keepStock = 0;
 
     function createDisplayString(colour, brand, size) {
+        var chosenItems = '';
+        var filteredItem = [];
 
-        var filteredItem;
         var filteredItemData;
         if (colour && brand && size) {
-            var checkData = { "size": size, "colour": colour, "brand": brand };
             if (!colour.startsWith('Select')) {
+                chosenItems += ('colour,');
+                filteredItem.filter = colour;
                 filteredItemData = loadData.filter(function (shoe) {
                     return shoe.colour === colour;
                 });
-                console.log(filteredItemData)
             }
 
             if (!brand.startsWith('Select')) {
+                chosenItems += ('brand,');
                 if (filteredItemData) {
+                    filteredItem.filter = filteredItem.filter + ", " + brand;
                     filteredItemData = filteredItemData.filter(function (shoe) {
                         return shoe.brand === brand;
                     });
                 } else {
+                    filteredItem.filter = brand;
                     filteredItemData = loadData.filter(function (shoe) {
                         return shoe.brand === brand;
                     });
                 }
-                console.log(filteredItemData)
             }
             if (!size.startsWith('Select')) {
+                chosenItems += ('size');
                 if (filteredItemData) {
+                    filteredItem.filter = filteredItem.filter + ", size " + size;
                     filteredItemData = filteredItemData.filter(function (shoe) {
-                        for (var y = 0; y < filteredItemData.length; y++) {
-                            for (var x = 0; x < filteredItemData[y].item_stock.length; x++) {
-                                if (shoe.item_stock[x].size === size) {
-                                    return shoe;
-                                }
+                        for (var x = 0; x < shoe.item_stock.length; x++) {
+                            if (shoe.item_stock[x].size === size) {
+                                return shoe;
                             }
+
                         }
                     });
                 } else {
+                    filteredItem.filter = "size " + size;
                     filteredItemData = loadData.filter(function (shoe) {
-                        for (var y = 0; y < loadData.length; y++) {
-                            for (var x = 0; x < loadData[y].item_stock.length; x++) {
-                                if (shoe.item_stock[x].size === size) {
-                                    return shoe;;
-                                }
+                        for (var x = 0; x < shoe.item_stock.length; x++) {
+                            if (shoe.item_stock[x].size === size) {
+                                return shoe;
                             }
                         }
+
                     });
                 }
-                console.log(filteredItemData)
             }
-            var test = getStockLoc(checkData)
-            if (test === -1) {
-                return "We have none of these in stock.";
-            } else if (test[1] === -1) {
-                return "We don't have that size."
-            } else {
-                for (var k = 0; k < loadData.length; k++) {
-                    if ((colour === loadData[k].colour) && (brand === loadData[k].brand)) {
-                        filteredItem = loadData[k].item_stock;
-                        filteredItemData = loadData[k]
+            for (var k = 0; k < filteredItemData.length; k++) {
+                var availItems;
+                var sizes = {};
+                var displaySizes = '';
+                for (var z = 0; z < filteredItemData[k].item_stock.length; z++) {
+                    if (filteredItemData[k].item_stock[z].stock) {
+                        if (chosenItems.endsWith("size")) {
+                            for (var y = 0; y < filteredItemData[k].item_stock.length; y++) {
+                                if (filteredItemData[k].item_stock[y].size === size) {
+                                    displaySizes = filteredItemData[k].item_stock[y].stock;
+
+                                }
+                            }
+                        } else if (sizes[filteredItemData[k].item_stock[z].size] === undefined) {
+                            sizes[filteredItemData[k].item_stock[z].size] = filteredItemData[k].item_stock[z].stock;
+                            displaySizes += filteredItemData[k].item_stock[z].size + '( ' + filteredItemData[k].item_stock[z].stock + ') ';
+                        }
                     }
                 }
-                for (var l = 0; l < filteredItem.length; l++) {
-                    if (size === filteredItem[l].size) {
-                        filteredItem = filteredItem[l].stock;
+                if (chosenItems !== "colour,brand,size") {
+                    switch (chosenItems) {
+                        case "colour,":
+                            availItems = filteredItemData[k].brand;
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            break;
+                        case "brand,":
+                            availItems = filteredItemData[k].colour;
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            break;
+                        case "colour,brand,":
+                            availItems = filteredItemData[k].colour + ' ' + filteredItemData[k].brand;
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            break;
+                        case "size":
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " + filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            break;
+                        case "colour,size":
+                            filteredItem.push({ "Avail_item": filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            break;
+                        case "brand,size":
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            break;
+                    }
+                } else {
+                    if (displaySizes) {
+                        filteredItem.push({ "stock": displaySizes, "colour": colour, "brand": brand, "size": size });
+                    } else {
+                        filteredItem.push({ "stock": 0, "colour": colour, "brand": brand, "size": size });
+
                     }
                 }
 
-                filteredItem = "We have " + filteredItem + " " + filteredItemData.colour + " " + filteredItemData.brand + "(s) in stock at R" + filteredItemData.price + " per.";
-                return filteredItem;
             }
+            return filteredItem;
         }
     }
 

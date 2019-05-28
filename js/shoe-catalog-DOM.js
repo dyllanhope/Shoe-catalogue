@@ -1,5 +1,6 @@
 var dropDownTemplateSource = document.querySelector(".dropDownTemplate").innerHTML;
 var basketTemplateSource = document.querySelector(".basketListTemplate").innerHTML;
+var filterTemplateSource = document.querySelector(".filteredListTemplate").innerHTML;
 // drop down menues
 var colourDropDown = document.querySelector("#colourDrop");
 var brandDropDown = document.querySelector("#brandDrop");
@@ -9,6 +10,7 @@ var colourData = document.querySelector(".colourData");
 var brandData = document.querySelector(".brandData");
 var sizeData = document.querySelector(".sizeData");
 var listData = document.querySelector(".listData");
+var filterData = document.querySelector(".filterData");
 //buttons
 var addBtn = document.querySelector(".addButton");
 var clearBtn = document.querySelector(".clearButton");
@@ -32,6 +34,7 @@ var displayField = document.querySelector("#display");
 //template compilations
 var basketTemplate = Handlebars.compile(basketTemplateSource);
 var dropDownTemplate = Handlebars.compile(dropDownTemplateSource);
+var filterTemplate = Handlebars.compile(filterTemplateSource);
 
 var shoeInstance = ShoeCatalogManager(records);
 
@@ -72,8 +75,18 @@ showEditor.addEventListener('click', function () {
 })
 
 searchBtn.addEventListener('click', function () {
-    displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
+    var filterOptions = {filter : shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value)};
+    console.log(filterOptions)
+    var filterHTML = filterTemplate(filterOptions);
+    filterData.innerHTML = filterHTML;
 })
+Handlebars.registerHelper('isAllSelected',function(options){
+    if (!(colourDropDown.value).startsWith('Select')
+    && !(brandDropDown.value).startsWith('Select')
+    && !(sizeDropDown.value).startsWith('Select')){
+        return true;
+    }
+});
 
 addBtn.addEventListener('click', function () {
     var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value) };
