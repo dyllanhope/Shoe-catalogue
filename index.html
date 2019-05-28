@@ -15,6 +15,13 @@
                 {{#each filter}}
                     <h4>We have {{stock}} size {{size}} {{colour}} {{brand}}(s) in stock.</h4>
                 {{/each}}
+            {{else if (isSizeSelected)}}
+            <h4>Shoes:</h4>
+            <ol>
+                {{#each filter}}
+                    <li>{{Avail_item}} - Stock in size: {{Avail_sizes}} - Price: R{{price}}</li>
+                {{/each}}
+            </ol>
             {{else}}
             <h4>Shoes:</h4>
             <ol>
@@ -76,7 +83,7 @@
 
                 </div>
             </div>
-            <div class="col-4 sideLeft">
+            <div style="background-color:rgb(204, 88, 53);border-radius:5px;border: 1px solid black" class="col-4 sideLeft">
                 <h3><u>Shopping Basket:</u></h3>
                 <div class="listData">
 

@@ -75,18 +75,20 @@ showEditor.addEventListener('click', function () {
 })
 
 searchBtn.addEventListener('click', function () {
-    var filterOptions = {filter : shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value)};
-    console.log(filterOptions)
-    var filterHTML = filterTemplate(filterOptions);
-    filterData.innerHTML = filterHTML;
+    displayFilter();
 })
-Handlebars.registerHelper('isAllSelected',function(options){
+Handlebars.registerHelper('isAllSelected',function(){
     if (!(colourDropDown.value).startsWith('Select')
     && !(brandDropDown.value).startsWith('Select')
     && !(sizeDropDown.value).startsWith('Select')){
         return true;
     }
 });
+Handlebars.registerHelper('isSizeSelected',function(){
+    if(!(sizeDropDown.value).startsWith('Select')){
+        return true;
+    }
+})
 
 addBtn.addEventListener('click', function () {
     var basketItems = { items: shoeInstance.buildBasket(colourDropDown.value, brandDropDown.value, sizeDropDown.value) };
@@ -94,18 +96,18 @@ addBtn.addEventListener('click', function () {
     listData.innerHTML = basketHTML;
     dispTotal.style.display = "unset";
     total.innerHTML = shoeInstance.total();
-    displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
+    displayFilter();
 })
 
 clearBtn.addEventListener('click', function () {
     shoeInstance.clear();
     listData.innerHTML = '';
     dispTotal.style.display = "none";
-    displayField.innerHTML = shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value);
+    displayFilter();
 })
 
 checkoutBtn.addEventListener('click', function () {
-    displayField.innerHTML = shoeInstance.checkout();
+    filterData.innerHTML = shoeInstance.checkout();
     listData.innerHTML = '';
     dispTotal.style.display = "none";
 })
@@ -122,6 +124,11 @@ function buildDropDowns() {
     var sizeOptions = { list: shoeInstance.size() };
     var sizeHTML = dropDownTemplate(sizeOptions);
     sizeData.innerHTML = sizeHTML;
+}
+function displayFilter(){
+    var filterOptions = {filter : shoeInstance.createString(colourDropDown.value, brandDropDown.value, sizeDropDown.value)};
+    var filterHTML = filterTemplate(filterOptions);
+    filterData.innerHTML = filterHTML;
 }
 
 
