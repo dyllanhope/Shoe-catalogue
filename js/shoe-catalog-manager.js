@@ -13,7 +13,6 @@ function ShoeCatalogManager(data) {
         if (colour && brand && size) {
             if (!colour.startsWith('Select')) {
                 chosenItems += ('colour,');
-                filteredItem.filter = colour;
                 filteredItemData = loadData.filter(function (shoe) {
                     return shoe.colour === colour;
                 });
@@ -22,12 +21,10 @@ function ShoeCatalogManager(data) {
             if (!brand.startsWith('Select')) {
                 chosenItems += ('brand,');
                 if (filteredItemData) {
-                    filteredItem.filter = filteredItem.filter + ", " + brand;
                     filteredItemData = filteredItemData.filter(function (shoe) {
                         return shoe.brand === brand;
                     });
                 } else {
-                    filteredItem.filter = brand;
                     filteredItemData = loadData.filter(function (shoe) {
                         return shoe.brand === brand;
                     });
@@ -36,7 +33,6 @@ function ShoeCatalogManager(data) {
             if (!size.startsWith('Select')) {
                 chosenItems += ('size');
                 if (filteredItemData) {
-                    filteredItem.filter = filteredItem.filter + ", size " + size;
                     filteredItemData = filteredItemData.filter(function (shoe) {
                         for (var x = 0; x < shoe.item_stock.length; x++) {
                             if (shoe.item_stock[x].size === size) {
@@ -46,7 +42,6 @@ function ShoeCatalogManager(data) {
                         }
                     });
                 } else {
-                    filteredItem.filter = "size " + size;
                     filteredItemData = loadData.filter(function (shoe) {
                         for (var x = 0; x < shoe.item_stock.length; x++) {
                             if (shoe.item_stock[x].size === size) {
@@ -72,7 +67,7 @@ function ShoeCatalogManager(data) {
                             }
                         } else if (sizes[filteredItemData[k].item_stock[z].size] === undefined) {
                             sizes[filteredItemData[k].item_stock[z].size] = filteredItemData[k].item_stock[z].stock;
-                            displaySizes += filteredItemData[k].item_stock[z].size + '( ' + filteredItemData[k].item_stock[z].stock + ') ';
+                            displaySizes += filteredItemData[k].item_stock[z].size + '(Qty: ' + filteredItemData[k].item_stock[z].stock + ') ';
                         }
                     }
                 }
@@ -266,7 +261,7 @@ function ShoeCatalogManager(data) {
         } else {
             basketList = [];
             total = 0.00;
-            return "items checked out successfully";
+            return "Items checked out successfully";
         }
     }
 

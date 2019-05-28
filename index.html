@@ -13,20 +13,26 @@
     <script type="text/template" class="filteredListTemplate">
             {{#if (isAllSelected)}}
                 {{#each filter}}
-                    <h4>We have {{stock}} size {{size}} {{colour}} {{brand}}(s) in stock.</h4>
+                    <h4>We have {{stock}} {{colour}} {{brand}}(s) - size: {{size}} in stock.</h4>
                 {{/each}}
             {{else if (isSizeSelected)}}
             <h4>Shoes:</h4>
             <ol>
                 {{#each filter}}
-                    <li>{{Avail_item}} - Stock in size: {{Avail_sizes}} - Price: R{{price}}</li>
+                    <li>{{Avail_item}} <br>
+                        Stock: {{Avail_sizes}} <br>
+                        Price: R{{price}}</li>
+                    <hr>
                 {{/each}}
             </ol>
             {{else}}
             <h4>Shoes:</h4>
             <ol>
                 {{#each filter}}
-                    <li>{{Avail_item}} - Sizes: {{Avail_sizes}} - Price: R{{price}}</li>
+                    <li>{{Avail_item}} <br> 
+                        Sizes: {{Avail_sizes}} <br>
+                        Price: R{{price}}</li>
+                    <hr>
                 {{/each}}
             </ol>
             {{/if}}
@@ -92,10 +98,10 @@
                     <strong class="totalText" style="color: white;float: none">Total: R<span id="total"></span></strong>
                 </div>
                 <div style="float: right">
-                    <button class="clearButton clear">Clear basket</button>
+                    <button class="clearButton basket">Clear basket</button>
                 </div>
                 <div style="float: right">
-                    <button class="checkoutButton clear">Checkout</button>
+                    <button class="checkoutButton basket">Checkout</button>
                 </div>
             </div>
         </div>
