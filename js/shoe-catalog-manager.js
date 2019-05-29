@@ -103,11 +103,9 @@ function ShoeCatalogManager(data) {
                     var findPriceLoc = getStockLoc(checkData);
                     if (displaySizes) {
                         filteredItem.push({ "stock": displaySizes, "colour": colour, "brand": brand, "size": size, "price":Number(loadData[findPriceLoc[0]].price).toFixed(2)});
-                        console.log(filteredItem)
                     } else {
 
                         filteredItem.push({ "stock": 0, "colour": colour, "brand": brand, "size": size,"price":Number(loadData[findPriceLoc[0]].price).toFixed(2)});
-                        console.log(filteredItem)
                     }
                 }
 
