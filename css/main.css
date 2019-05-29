@@ -34,6 +34,21 @@ button.clear{
     display: inline-block;
     font-size: 16px;
 }
+.tableStyle table{
+    border: 1px solid black;
+    border-collapse: collapse !important;
+    width: 100%;
+}
+.tableStyle th{
+    border: 1px solid black;
+    border-collapse: collapse !important;
+    width: 100%;
+}
+.tableStyle td{
+    border: 1px solid black;
+    border-collapse: collapse !important;
+    width: 100%;
+}
 
 h4{
     margin-top:2px;

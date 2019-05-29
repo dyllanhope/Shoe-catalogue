@@ -17,24 +17,36 @@
                 {{/each}}
             {{else if (isSizeSelected)}}
             <h4>Shoes:</h4>
-            <ol>
+            <table class = "tableStyle">
+                <tr>
+                    <th>Items Available</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                </tr>
                 {{#each filter}}
-                    <li>{{Avail_item}} <br>
-                        Stock: <span style="color:rgb(163, 68, 39)">{{Avail_sizes}}</span> <br>
-                        Price: R{{price}}</li>
-                    <hr>
+                <tr>
+                    <td>{{Avail_item}} </td>
+                    <td>{{Avail_sizes}}</td>
+                    <td>R{{price}}</td>
+                </tr>
                 {{/each}}
-            </ol>
+                    </table>
             {{else}}
             <h4>Shoes:</h4>
-            <ol>
+            <table class="tableStyle">
+                <tr>
+                    <th>Items Available</th>
+                    <th>Sizes(stock)</th>
+                    <th>Price</th>
+                </tr>
                 {{#each filter}}
-                    <li>{{Avail_item}} <br> 
-                        Sizes: {{Avail_sizes}} <br>
-                        Price: R{{price}}</li>
-                    <hr>
+                <tr>
+                    <td>{{Avail_item}} </td>
+                    <td>{{Avail_sizes}} </td>
+                    <td>R{{price}} </td>
+                    </tr>
                 {{/each}}
-            </ol>
+                    </table>
             {{/if}}
     </script>
 
@@ -89,7 +101,8 @@
 
                 </div>
             </div>
-            <div style="background-color:rgb(204, 88, 53);border-radius:5px;border: 1px solid black" class="col-4 sideLeft">
+            <div style="background-color:rgb(204, 88, 53);border-radius:5px;border: 1px solid black"
+                class="col-4 sideLeft">
                 <h3><u>Shopping Basket:</u></h3>
                 <div class="listData">
 
