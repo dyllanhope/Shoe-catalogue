@@ -16,11 +16,11 @@ describe("Testing Shoe Catalog Manager", function () {
     describe("Testing the string function that displays stock after search", function(){
         it("Should return 'We have 1 Blue Nike(s) in stock at R350 per.' with the options of 'Blue','Nike' and '8' selected", function () {
             var shoeInstance = ShoeCatalogManager(records);
-            assert.deepEqual(shoeInstance.createString("Blue","Nike","8"),[{"stock": 1, "colour": "Blue", "brand": "Nike", "size": "8","price":350.00}]);
+            assert.deepEqual(shoeInstance.createString("Blue","Nike","8"),[{"stock": 1, "colour": "Blue", "brand": "Nike", "size": "8","price":"350.00"}]);
         })
         it("Should return 'We have 5 Black Adidas(s) in stock at R1200 per.' with the options of 'Black','Adidas' and '7' selected", function () {
             var shoeInstance = ShoeCatalogManager(records);
-            assert.deepEqual(shoeInstance.createString("Black","Adidas","7"),[{"stock": 5, "colour": "Black", "brand": "Adidas", "size": "7","price":1200.00}]);
+            assert.deepEqual(shoeInstance.createString("Black","Adidas","7"),[{"stock": 5, "colour": "Black", "brand": "Adidas", "size": "7","price":"1200.00"}]);
         })
         it("Should return nothing with no input as nothing can be processed", function () {
             var shoeInstance = ShoeCatalogManager(records);
