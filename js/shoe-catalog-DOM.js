@@ -48,7 +48,7 @@ updateBtn.addEventListener('click', function () {
     if (shoeInstance.passing() === true) {
         messageField.innerHTML = "The record has been successfully added. Total stock added: " + shoeInstance.stock();
     } else {
-        messageField.innerHTML = "You have not filled every field.";
+        messageField.innerHTML = "You have not filled every field correctly.";
     }
 
     colourDropDown.innerHTML = '';
@@ -56,6 +56,7 @@ updateBtn.addEventListener('click', function () {
     sizeDropDown.innerHTML = '';
 
     buildDropDowns();
+    filterData.innerHTML = '';
 })
 
 hideBtn.addEventListener('click', function () {

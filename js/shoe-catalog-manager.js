@@ -72,6 +72,9 @@ function ShoeCatalogManager(data) {
                     }
                 }
                 if (chosenItems !== "colour,brand,size") {
+                    if(displaySizes ===''){
+                        displaySizes = "None in stock"
+                    }
                     switch (chosenItems) {
                         case "colour,":
                             availItems = filteredItemData[k].brand;
@@ -230,27 +233,32 @@ function ShoeCatalogManager(data) {
     function updateRecords(colour, brand, price, size, stock) {
         passed = false;
         if (colour && brand && price && size && stock) {
-            passed = true;
-            var upColour = colour.charAt(0).toUpperCase() + (colour.slice(1)).toLowerCase();
-            var upBrand = brand.charAt(0).toUpperCase() + (brand.slice(1)).toLowerCase();
-            var searchData = { "size": size, "colour": upColour, "brand": upBrand };
-            var stockLoc = getStockLoc(searchData);
-            if (stockLoc === -1) {
-                loadData.push({
-                    "colour": upColour,
-                    "brand": upBrand,
-                    "price": Number(price),
-                    "item_stock": [
-                        { "size": size, "stock": Number(stock) }
-                    ]
-                });
-                keepStock += Number(stock);
-            } else if (stockLoc[1] === -1) {
-                loadData[stockLoc[0]].item_stock.push({ "size": size, "stock": Number(stock) });
-                keepStock += Number(stock);
-            } else {
-                loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += Number(stock);
-                keepStock += Number(stock);
+            var regexNumberCheck = /\d/;
+            var numberCheckCol = regexNumberCheck.test(colour);
+            var numberCheckBrand = regexNumberCheck.test(brand);
+            if (numberCheckCol === false && numberCheckBrand === false) {
+                passed = true;
+                var upColour = colour.charAt(0).toUpperCase() + (colour.slice(1)).toLowerCase();
+                var upBrand = brand.charAt(0).toUpperCase() + (brand.slice(1)).toLowerCase();
+                var searchData = { "size": size, "colour": upColour, "brand": upBrand };
+                var stockLoc = getStockLoc(searchData);
+                if (stockLoc === -1) {
+                    loadData.push({
+                        "colour": upColour,
+                        "brand": upBrand,
+                        "price": Number(price),
+                        "item_stock": [
+                            { "size": size, "stock": Number(stock) }
+                        ]
+                    });
+                    keepStock += Number(stock);
+                } else if (stockLoc[1] === -1) {
+                    loadData[stockLoc[0]].item_stock.push({ "size": size, "stock": Number(stock) });
+                    keepStock += Number(stock);
+                } else {
+                    loadData[stockLoc[0]].item_stock[stockLoc[1]].stock += Number(stock);
+                    keepStock += Number(stock);
+                }
             }
         }
     }
