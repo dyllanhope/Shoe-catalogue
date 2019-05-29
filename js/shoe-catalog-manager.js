@@ -92,10 +92,10 @@ function ShoeCatalogManager(data) {
                             filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " + filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                         case "colour,size":
-                            filteredItem.push({ "Avail_item": filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " +filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                         case "brand,size":
-                            filteredItem.push({ "Avail_item": filteredItemData[k].colour, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " +filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                     }
                 } else {
