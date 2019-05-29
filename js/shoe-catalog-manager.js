@@ -78,31 +78,34 @@ function ShoeCatalogManager(data) {
                     switch (chosenItems) {
                         case "colour,":
                             availItems = filteredItemData[k].brand;
-                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)});
                             break;
                         case "brand,":
                             availItems = filteredItemData[k].colour;
-                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)});
                             break;
                         case "colour,brand,":
                             availItems = filteredItemData[k].colour + ' ' + filteredItemData[k].brand;
-                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) });
+                            filteredItem.push({ "Avail_item": availItems, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)});
                             break;
                         case "size":
-                            filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " + filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour + " " + filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                         case "colour,size":
-                            filteredItem.push({ "Avail_item": filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            filteredItem.push({ "Avail_item": filteredItemData[k].brand, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                         case "brand,size":
-                            filteredItem.push({ "Avail_item": filteredItemData[k].colour, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price) })
+                            filteredItem.push({ "Avail_item": filteredItemData[k].colour, "Avail_sizes": displaySizes, "price": Number(filteredItemData[k].price).toFixed(2)})
                             break;
                     }
                 } else {
+                    var checkData = {"colour":colour,"brand":brand,"size":size};
+                    var findPriceLoc = getStockLoc(checkData);
                     if (displaySizes) {
-                        filteredItem.push({ "stock": displaySizes, "colour": colour, "brand": brand, "size": size });
+                        filteredItem.push({ "stock": displaySizes, "colour": colour, "brand": brand, "size": size, "price":Number(loadData[findPriceLoc[0]].price).toFixed(2)});
                     } else {
-                        filteredItem.push({ "stock": 0, "colour": colour, "brand": brand, "size": size });
+
+                        filteredItem.push({ "stock": 0, "colour": colour, "brand": brand, "size": size,"price":Number(loadData[findPriceLoc[0]].price).toFixed(2)});
 
                     }
                 }
